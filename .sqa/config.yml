@@ -1,0 +1,52 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.com/fall3d-suite/fall3d-miniapp:
+      branch: main
+      repo: https://gitlab.com/fall3d-suite/fall3d-miniapp
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.com/fall3d-suite/fall3d-miniapp git:
+        commands:
+        - /usr/bin/env sh .sqa/script.zippy-asparagus-falcon.sh
+        container: qc.acc_wheezy-pink-mongoose
+  QC.Doc:
+    repos:
+      gitlab.com/fall3d-suite/fall3d-miniapp find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.pretty-carmine-fly.sh
+        container: qc.doc_sleazy-pumpkin-cichlid
+      gitlab.com/fall3d-suite/fall3d-miniapp git:
+        commands:
+        - /usr/bin/env sh .sqa/script.flaky-orange-ferret.sh
+        container: qc.doc_wimpy-magnolia-eagle
+      gitlab.com/fall3d-suite/fall3d-miniapp markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.stealthy-razzmatazz-avocet.sh
+        container: qc.doc_foggy-denim-rattlesnake
+  QC.Lic:
+    repos:
+      gitlab.com/fall3d-suite/fall3d-miniapp licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.boozy-lavender-emu.sh
+        container: qc.lic_leaky-orchid-civet
+  QC.Met:
+    repos:
+      gitlab.com/fall3d-suite/fall3d-miniapp cff-converter-python:
+        commands:
+        - /usr/bin/env sh .sqa/script.whiny-copper-spoonbill.sh
+        container: qc.met_muggy-seashell-mule
+  QC.Ver:
+    repos:
+      gitlab.com/fall3d-suite/fall3d-miniapp get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.pretty-green-zonkey.sh
+        container: qc.ver_gloppy-peach-audemer
+timeout: 5400
